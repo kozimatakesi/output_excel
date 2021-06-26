@@ -8,11 +8,38 @@
     "watch": "webpack --config webpack.common.js --watch",
     "start": "electron ."
   },
+  "build": {
+    "appId": "com.electron.yourapp",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "assets",
+      "build/js",
+      "package.json",
+      "package-lock.json",
+      "main.js",
+      "preload.js"
+    ],
+    "mac": {
+      "icon": "assets/mac/icon_mac.icns",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "icon": "assets/win/icon_win.ico",
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^10.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
@@ -22,11 +49,13 @@
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
     "css-loader": "^4.3.0",
+    "electron": "^10.4.7",
+    "electron-builder": "^22.11.7",
     "electron-reload": "^1.5.0",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
-    "webpack": "^4.44.2",
+    "webpack": "^5.40.0",
     "webpack-cli": "^3.3.12"
   }
 }
