@@ -18,6 +18,7 @@
       "build/js",
       "package.json",
       "package-lock.json",
+      "index.html",
       "main.js",
       "preload.js"
     ],
