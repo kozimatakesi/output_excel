@@ -17,7 +17,9 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
-
+  // デベロッパーツールを表示させる、ビルド時は削除
+  win.webContents.openDevTools();
+  //
   win.loadFile('index.html');
 }
 
