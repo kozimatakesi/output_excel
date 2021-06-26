@@ -16,12 +16,12 @@ module.exports = {
             presets: [[
               '@babel/preset-env', {
                 targets: {
-                  esmodules: true
-                }
+                  esmodules: true,
+                },
               }],
-              '@babel/preset-react']
-          }
-        }
+            '@babel/preset-react'],
+          },
+        },
       },
       {
         test: [/\.s[ac]ss$/i, /\.css$/i],
@@ -33,8 +33,8 @@ module.exports = {
           // Compiles Sass to CSS
           'sass-loader',
         ],
-      }
-    ]
+      },
+    ],
   },
   resolve: {
     extensions: ['.js'],

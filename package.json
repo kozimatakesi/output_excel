@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --config webpack.common.js --watch",
-    "start": "electron ."
+    "start": "electron .",
+    "lint": "eslint *.js",
+    "lint --fix": "eslint --fix *.js"
   },
   "build": {
     "appId": "com.electron.yourapp",
@@ -53,6 +55,12 @@
     "electron": "^10.4.7",
     "electron-builder": "^22.11.7",
     "electron-reload": "^1.5.0",
+    "eslint": "^7.29.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
