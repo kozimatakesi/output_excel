@@ -1,18 +1,21 @@
 import React from 'react';
+import { Button, ChakraProvider, Container } from '@chakra-ui/react';
 
 export default function App() {
   return (
-    <>
-      <h1>You are App Component!!!</h1>
-      <button
-        type="button"
-        onClick={() => {
-          electron.notificationApi.sendNotification('My custom notification!');
-        }}
-      >
-        Notify
+    <ChakraProvider>
+      <Container>
+        <h1>You are App Component!!!</h1>
+        <Button
+          type="button"
+          onClick={() => {
+            electron.notificationApi.sendNotification('My custom notification!');
+          }}
+        >
+          Notify
 
-      </button>
-    </>
+        </Button>
+      </Container>
+    </ChakraProvider>
   );
 }
