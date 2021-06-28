@@ -28,7 +28,6 @@ const SearchDir = () => {
             handleInputChangedDirPath(e);
           }}
         />
-        <Input {...getInputProps()} />
         {
         isDragActive
           ? <Text>フォルダがドラッグされています</Text>
@@ -37,8 +36,8 @@ const SearchDir = () => {
 
       </Box>
       {
-        dirPath !== ''
-          ? <Button>Yes</Button> : ''
+        !dirPath.includes('.') && dirPath !== ''
+          ? <Button>EXCEL出力</Button> : ''
       }
     </Container>
   );
