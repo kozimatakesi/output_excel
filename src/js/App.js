@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, ChakraProvider, Container, Text,
+  ChakraProvider, Container,
 } from '@chakra-ui/react';
 import SearchDir from './SearchDir';
 

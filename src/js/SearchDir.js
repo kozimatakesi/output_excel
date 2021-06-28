@@ -46,7 +46,15 @@ const SearchDir = () => {
       </Box>
       {
         !dirPath.includes('.') && dirPath !== ''
-          ? <Button>EXCEL出力</Button> : <Text>ディレクトリが指定されていません</Text>
+          ? (
+            <Button
+              onClick={() => {
+                api.filesApi.createExcelFile(dirPath);
+              }}
+            >
+              EXCEL出力
+            </Button>
+          ) : <Text>ディレクトリが指定されていません</Text>
       }
     </Container>
   );
