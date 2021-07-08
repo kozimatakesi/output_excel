@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const {
   BrowserWindow, app, ipcMain, Notification,
 } = require('electron');
@@ -85,7 +86,7 @@ ipcMain.on('createExcelFile', (_, dirPath) => {
   (async () => {
     await getAllFiles(dirPath);
     for (const file of AllFiles) {
-      if (file.name != '.DS_Store') {
+      if (file.name !== '.DS_Store') {
         const checkTime = file.name.match(/_\d{6}\D/);
         let startTime = '';
         if (checkTime) {

@@ -35,7 +35,7 @@ const SearchDir = () => {
         isDragActive
           ? <Text>フォルダがドラッグされています</Text>
           : <Text>フォルダをドラッグしてください</Text>
-      }
+        }
         <Input
           value={dirPath}
           onChange={(e) => {
