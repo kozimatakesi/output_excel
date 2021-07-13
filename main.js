@@ -38,6 +38,23 @@ ipcMain.on('notify', (_, message) => {
   new Notification({ title: 'Notifiation', body: message }).show();
 });
 
+// ファイルを時間でソートする関数
+const getFilePathSortList = async (dir) => {
+  const fileList = [];
+  const files = await fs.readdir(dir);
+  for (const file of files) {
+    const filePath = `${dir}/${file}`;
+    const stats = await fs.stat(filePath);
+    fileList.push({
+      filePath,
+      mtime: stats.mtime,
+    });
+  }
+  return fileList
+    .sort((a, b) => a.mtime - b.mtime)
+    .map((file) => file.filePath);
+};
+
 // Excelファイルを出力する
 ipcMain.on('createExcelFile', (_, dirPath) => {
   const AllFiles = [];
@@ -48,13 +65,17 @@ ipcMain.on('createExcelFile', (_, dirPath) => {
     const innerDirFiles = await fs.readdir(directoryPath, {
       withFileTypes: true,
     });
-    for (const file of innerDirFiles) {
-      if (file.isFile()) {
-        const stats = await fs.stat(`${directoryPath}/${file.name}`);
+
+    const innerDirFilesSorted = await getFilePathSortList(directoryPath);
+
+    for (const file of innerDirFilesSorted) {
+      // if (file.isFile()) {
+      const stats = await fs.stat(file);
+      if (stats.isFile()) {
         AllFiles.push({
           path: directoryPath,
           dir: dirName,
-          name: file.name,
+          name: path.basename(file),
           size: stats.size,
           date: stats.mtime.toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' }),
           time: stats.mtime.toLocaleTimeString('ja-JP', { timeZone: 'Asia/Tokyo' }),
