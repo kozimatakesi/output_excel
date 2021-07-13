@@ -38,7 +38,7 @@ ipcMain.on('notify', (_, message) => {
   new Notification({ title: 'Notifiation', body: message }).show();
 });
 
-// ファイルを時間でソートする関数
+// 対象ディレクトリ内のファイル全てを配列に格納し時間でソートしたものを返す関数
 const getFilePathSortList = async (dir) => {
   const fileList = [];
   const files = await fs.readdir(dir);
@@ -48,11 +48,11 @@ const getFilePathSortList = async (dir) => {
     fileList.push({
       filePath,
       mtime: stats.mtime,
+      stats,
     });
   }
   return fileList
-    .sort((a, b) => a.mtime - b.mtime)
-    .map((file) => file.filePath);
+    .sort((a, b) => a.mtime - b.mtime);
 };
 
 // Excelファイルを出力する
@@ -62,33 +62,26 @@ ipcMain.on('createExcelFile', (_, dirPath) => {
   // 対象ディレクトリ内の全てのファイルを取得する関数
   const getAllFiles = async (directoryPath) => {
     const dirName = path.basename(directoryPath);
-    const innerDirFiles = await fs.readdir(directoryPath, {
-      withFileTypes: true,
-    });
-
     const innerDirFilesSorted = await getFilePathSortList(directoryPath);
-
+    const dirOnly = innerDirFilesSorted.filter((file) => file.stats.isDirectory());
     for (const file of innerDirFilesSorted) {
-      // if (file.isFile()) {
-      const stats = await fs.stat(file);
-      if (stats.isFile()) {
+      if (file.stats.isFile()) {
         AllFiles.push({
           path: directoryPath,
           dir: dirName,
-          name: path.basename(file),
-          size: stats.size,
-          date: stats.mtime.toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' }),
-          time: stats.mtime.toLocaleTimeString('ja-JP', { timeZone: 'Asia/Tokyo' }),
+          name: path.basename(file.filePath),
+          size: file.stats.size,
+          date: file.stats.mtime.toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' }),
+          time: file.stats.mtime.toLocaleTimeString('ja-JP', { timeZone: 'Asia/Tokyo' }),
         });
       }
     }
-    const dirOnly = innerDirFiles.filter((file) => file.isDirectory());
     // 対象ディレクトリ内にディレクトリがなかった時は終了
     if (dirOnly.length === 0) {
       return;
     }
     for (const dir of dirOnly) {
-      const newDirPath = `${directoryPath}/${dir.name}`;
+      const newDirPath = `${directoryPath}/${path.basename(dir.filePath)}`;
       await getAllFiles(newDirPath);
     }
   };
