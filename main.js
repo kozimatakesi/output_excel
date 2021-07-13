@@ -23,7 +23,7 @@ function createWindow() {
     },
   });
   // デベロッパーツールを表示させる、ビルド時は削除
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
   //
   win.loadFile('index.html');
 }
@@ -109,7 +109,10 @@ ipcMain.on('createExcelFile', (_, dirPath) => {
           const sec = time.slice(4);
           startTime = `${hour}:${min}:${sec}`;
         }
-        if (fileDir !== file.dir) {
+
+        if (forExcel.length === 1) {
+          forExcel.push([file.path]);
+        } else if (fileDir !== file.dir) {
           forExcel.push([], [file.path]);
         }
 
