@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 const {
-  BrowserWindow, app, ipcMain, Notification,
+  BrowserWindow, app, ipcMain, Notification, dialog,
 } = require('electron');
 const path = require('path');
 const fs = require('fs').promises;
@@ -12,8 +12,8 @@ const isDev = !app.isPackaged;
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 600,
+    height: 400,
     backgroundColor: 'white',
     webPreferences: {
       nodeIntegration: false,
@@ -36,6 +36,16 @@ if (isDev) {
 // お知らせを表示する
 ipcMain.on('notify', (_, message) => {
   new Notification({ title: 'Notifiation', body: message }).show();
+});
+
+// ダイアログでフォルダを検索する
+ipcMain.on('searchDirPath', async (event) => {
+  const dirInfo = await dialog.showOpenDialog({
+    properties: ['openDirectory'],
+    title: 'title',
+  });
+  const dirPath = dirInfo.filePaths[0];
+  event.reply('dirPath', dirPath);
 });
 
 // 対象ディレクトリ内のファイル全てを配列に格納し時間でソートしたものを返す関数

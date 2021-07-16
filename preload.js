@@ -13,6 +13,11 @@ contextBridge.exposeInMainWorld('api', {
     createExcelFile(dirPath) {
       ipcRenderer.send('createExcelFile', dirPath);
     },
-
+    searchDirPath() {
+      ipcRenderer.send('searchDirPath');
+    },
+  },
+  on: (channel, callback) => {
+    ipcRenderer.on(channel, (event, arg) => callback(event, arg));
   },
 });

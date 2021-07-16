@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import {
   Box, Container, Input, Text, Button,
 } from '@chakra-ui/react';
@@ -28,13 +28,26 @@ const SearchDir = () => {
 
   const { getRootProps, isDragActive } = useDropzone({ onDrop });
 
+  useEffect(() => {
+    api.on('dirPath', (_, arg) => {
+      setDirPath(arg);
+    });
+  }, []);
+
   return (
     <Container>
       <Box {...getRootProps()}>
         {
         isDragActive
-          ? <Text>フォルダがドラッグされています</Text>
-          : <Text>フォルダをドラッグしてください</Text>
+          ? <Text>ドラッグされています</Text>
+          : (
+            <Button onClick={() => {
+              api.filesApi.searchDirPath();
+            }}
+            >
+              ディレクトリ検索
+            </Button>
+          )
         }
         <Input
           value={dirPath}
