@@ -14,15 +14,19 @@ const SearchDir = () => {
 
   // ドラッグしたディレクトリのパスを入力欄にいれる
   const onDrop = useCallback((acceptedFiles) => {
-    const firstElement = acceptedFiles[0].path.split('/');
-    const lastElement = acceptedFiles[acceptedFiles.length - 1].path.split('/');
+    console.log('acceptedFiles:', acceptedFiles[0].path);
+    const firstElement = acceptedFiles[0].path.split('');
+    console.log(firstElement);
+    const lastElement = acceptedFiles[acceptedFiles.length - 1].path.split('');
+    console.log(lastElement);
     const array = [];
     for (let i = 0; i < firstElement.length; i++) {
       if (firstElement[i] === lastElement[i]) {
         array.push(firstElement[i]);
       }
     }
-    const dragPath = array.join('/');
+    const dragPath = array.join("");
+    console.log(dragPath);
     setDirPath(dragPath);
   });
 
