@@ -39,13 +39,17 @@ const SearchDir = () => {
       <Box {...getRootProps()}>
         {
         isDragActive
-          ? <Text>ドラッグされています</Text>
+          ? (
+            <Text>
+              Is being dragged
+            </Text>
+          )
           : (
             <Button onClick={() => {
               api.filesApi.searchDirPath();
             }}
             >
-              ディレクトリ検索
+              Directory Search
             </Button>
           )
         }
@@ -65,9 +69,13 @@ const SearchDir = () => {
                 api.filesApi.createExcelFile(dirPath);
               }}
             >
-              EXCEL出力
+              EXCEL Output
             </Button>
-          ) : <Text>ディレクトリが指定されていません</Text>
+          ) : (
+            <Text>
+              No directory specified
+            </Text>
+          )
       }
     </Container>
   );
