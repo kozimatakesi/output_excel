@@ -5,17 +5,20 @@ function DropDirectory() {
   const handleDrop = async (e) => {
     const item = e.dataTransfer.items[0]; // ※1
     const entry = item.webkitGetAsEntry(); // ※2
-    console.log(item);
     if (entry.isFile) {
       const file = await new Promise((resolve) => {
-        entry.file((file) => { // ※3
-          resolve(file);
+        entry.file((content) => {
+          resolve(content);
         });
       });
-
       console.log('これはファイルです', file);
     } else if (entry.isDirectory) {
-      console.log(entry);
+      const dir = await new Promise((resolve) => {
+        entry.file((direct) => {
+          resolve(direct);
+        });
+      });
+      console.log('これはディレクトリです', dir);
     }
   };
 
