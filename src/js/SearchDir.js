@@ -1,32 +1,22 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  Box, Container, Input, Text, Button,
+  Box, Container, Input, Button, Text,
 } from '@chakra-ui/react';
-import { useDropzone } from 'react-dropzone';
+import { DropArea } from './DropArea';
 
 const SearchDir = () => {
-  const [dirPath, setDirPath] = useState('');
-
-  const handleInputChangedDirPath = (e) => {
-    const inputValue = e.target.value;
-    setDirPath(inputValue);
-  };
+  const [dirPath, setDirPath] = useState('ディレクトリをここにドロップ');
+  const [dirOrFile, setDirOrFile] = useState('');
 
   // ドラッグしたディレクトリのパスを入力欄にいれる
-  const onDrop = useCallback((acceptedFiles) => {
-    const firstElement = acceptedFiles[0].path.split('/');
-    const lastElement = acceptedFiles[acceptedFiles.length - 1].path.split('/');
-    const array = [];
-    for (let i = 0; i < firstElement.length; i++) {
-      if (firstElement[i] === lastElement[i]) {
-        array.push(firstElement[i]);
-      }
+  const handleDrop = async (e) => {
+    const item = e.dataTransfer.items[0]; // DataTransferItemオブジェクトとして取得
+    const entry = item.webkitGetAsEntry(); // DataTransferItemオブジェクトをEntryオブジェクトに変換する
+    if (entry.isDirectory) {
+      setDirPath(e.dataTransfer.files[0].path);
+      setDirOrFile('dir');
     }
-    const dragPath = array.join('/');
-    setDirPath(dragPath);
-  });
-
-  const { getRootProps, isDragActive } = useDropzone({ onDrop });
+  };
 
   useEffect(() => {
     api.on('dirPath', (_, arg) => {
@@ -36,46 +26,35 @@ const SearchDir = () => {
 
   return (
     <Container>
-      <Box {...getRootProps()}>
-        {
-        isDragActive
-          ? (
-            <Text>
-              Is being dragged
-            </Text>
-          )
-          : (
-            <Button onClick={() => {
-              api.filesApi.searchDirPath();
-            }}
-            >
-              Directory Search
-            </Button>
-          )
-        }
-        <Input
-          value={dirPath}
-          onChange={(e) => {
-            handleInputChangedDirPath(e);
-          }}
-        />
+      <Box>
+        <Button onClick={() => {
+          api.filesApi.searchDirPath();
+          setDirOrFile('dir');
+        }}
+        >
+          ディレクトリ検索
+        </Button>
+        <DropArea onDrop={handleDrop}>
+          <Input
+            value={dirPath}
+            readOnly
+          />
+        </DropArea>
 
       </Box>
+
       {
-        !dirPath.includes('.') && dirPath !== ''
+        dirOrFile === 'dir'
           ? (
             <Button
               onClick={() => {
                 api.filesApi.createExcelFile(dirPath);
               }}
             >
-              EXCEL Output
+              EXCELファイル出力
             </Button>
-          ) : (
-            <Text>
-              No directory specified
-            </Text>
-          )
+          ) : <Text>ディレクトリを指定してください</Text>
+
       }
     </Container>
   );

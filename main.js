@@ -64,6 +64,7 @@ const getFilePathSortList = async (dir) => {
   return fileList
     .sort((a, b) => a.mtime - b.mtime);
 };
+
 const AllFiles = [];
 
 // 対象ディレクトリ内の全てのファイルを取得する関数
@@ -83,6 +84,7 @@ const getAllFiles = async (directoryPath) => {
       });
     }
   }
+
   // 対象ディレクトリ内にディレクトリがなかった時は終了
   if (dirOnly.length === 0) {
     return;
