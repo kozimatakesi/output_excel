@@ -55,9 +55,12 @@ const getFilePathSortList = async (dir) => {
   for (const file of files) {
     const filePath = `${dir}/${file}`;
     const stats = await fs.stat(filePath);
+    const { mtime } = stats;
+    // fileList = [...fileList, { filePath, mtime, stats }];
+
     fileList.push({
       filePath,
-      mtime: stats.mtime,
+      mtime,
       stats,
     });
   }

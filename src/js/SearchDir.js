@@ -22,6 +22,7 @@ const SearchDir = () => {
   useEffect(() => {
     api.on('dirPath', (_, arg) => {
       setDirPath(arg);
+      setDirOrFile('dir');
     });
   }, []);
 
@@ -30,7 +31,6 @@ const SearchDir = () => {
       <Box>
         <Button onClick={() => {
           api.filesApi.searchDirPath();
-          setDirOrFile('dir');
         }}
         >
           ディレクトリ検索
