@@ -45,7 +45,9 @@ ipcMain.on('searchDirPath', async (event) => {
     title: 'title',
   });
   const dirPath = dirInfo.filePaths[0];
-  event.reply('dirPath', dirPath);
+  if (dirPath) {
+    event.reply('dirPath', dirPath);
+  }
 });
 
 // 対象ディレクトリ内のファイル全てを配列に格納し時間でソートしたものを返す関数
