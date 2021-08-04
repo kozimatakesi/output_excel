@@ -106,7 +106,6 @@ ipcMain.on('createExcelFile', (_, dirPath) => {
       'ファイル名',
       'ファイルサイズ',
       '更新日',
-      '開始時間',
       '更新時間',
     ],
   ];
@@ -115,16 +114,6 @@ ipcMain.on('createExcelFile', (_, dirPath) => {
     await getAllFiles(dirPath);
     for (const file of AllFiles) {
       if (file.name !== '.DS_Store') {
-        const checkTime = file.name.match(/_\d{6}\D/);
-        let startTime = '';
-        if (checkTime) {
-          const time = checkTime[0].slice(1).slice(0, -1);
-          const hour = time.slice(0, 2);
-          const min = time.slice(2, 4);
-          const sec = time.slice(4);
-          startTime = `${hour}:${min}:${sec}`;
-        }
-
         if (forExcel.length === 1) {
           forExcel.push([file.path]);
         } else if (fileDir !== file.dir) {
@@ -138,7 +127,6 @@ ipcMain.on('createExcelFile', (_, dirPath) => {
           file.name,
           `${(file.size / 1000000).toFixed(2)}Mbyte`,
           file.date,
-          startTime,
           file.time,
         ]);
       }
