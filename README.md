@@ -3,11 +3,9 @@
 2. In one terminal window run: ```npm run watch``` to compile react code <br/>
 3. In other one run: ```npm start``` to start Electron app
 
-# Name（リポジトリ/プロジェクト/OSSなどの名前）
+# EXCEL-OUTPUT
 
-分かりやすくてカッコイイ名前をつける（今回は"hoge"という名前をつける）
-
-"hoge"が何かを簡潔に紹介する
+対象ディレクトリ内の全てのファイルリストを.xlsxファイルにて出力するアプリ
 
 # DEMO
 
@@ -19,17 +17,15 @@
 
 # Requirement
 
-"hoge"を動かすのに必要なライブラリなどを列挙する
-
-* huga 3.5.2
-* hogehuga 1.0.2
+* node 15.3.0
+* npm 7.0.14
 
 # Installation
 
-Requirementで列挙したライブラリなどのインストール方法を説明する
-
+1. https://nodejs.org/ja/にてNodeをインストールする
+2. 以下コマンドにてnpmをインストールする
 ```bash
-pip install huga_package
+sudo npm install -g npm
 ```
 
 # Usage
