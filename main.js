@@ -100,7 +100,7 @@ const getAllFiles = async (directoryPath) => {
 
 // Excelファイルを出力する
 ipcMain.on('createExcelFile', (_, dirPath) => {
-  let forExcel = [
+  const forExcel = [
     [
       'フォルダ名',
       'ファイル名',
@@ -134,7 +134,6 @@ ipcMain.on('createExcelFile', (_, dirPath) => {
       body: `${dirPath}/${path.basename(dirPath)}.xlsを作成しました`,
     }).show();
   })();
-  forExcel = [];
   AllFiles = [];
 });
 
