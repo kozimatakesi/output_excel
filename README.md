@@ -10,6 +10,9 @@
 <img width="668" alt="スクリーンショット 2021-08-05 13 53 58" src="https://user-images.githubusercontent.com/58904417/128293032-b1367a61-997b-4d34-8ce0-52314a28150a.png">
 ディレクトリパスが指定されていると「EXCELファイル出力」ボタンが表示され、クリックすると対象ディレクトリ内に
 対象ディレクトリ内の全てのファイル情報がリスト化された「ディレクトリ名.xlsx」ファイルが出力されます
+<img width="716" alt="スクリーンショット 2021-08-05 20 30 49" src="https://user-images.githubusercontent.com/58904417/128343757-ef556fef-e72e-4626-ab2a-96f9dac4e7a3.png">
+
+
 
 
 # 動作環境
