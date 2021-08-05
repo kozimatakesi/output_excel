@@ -4,6 +4,7 @@ import {
   Box, Container, Input, Button, Text,
 } from '@chakra-ui/react';
 import { DropArea } from './DropArea';
+import FilesList from './FilesList';
 
 const SearchDir = () => {
   const [dirPath, setDirPath] = useState('ディレクトリをここにドロップ');
@@ -57,6 +58,7 @@ const SearchDir = () => {
           ) : <Text>ディレクトリを指定してください</Text>
 
       }
+      <FilesList />
     </Container>
   );
 };
