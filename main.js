@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 const {
   BrowserWindow, app, ipcMain, Notification, dialog,
 } = require('electron');
