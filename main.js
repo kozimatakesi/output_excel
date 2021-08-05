@@ -68,7 +68,7 @@ const getFilePathSortList = async (dir) => {
     .sort((a, b) => a.mtime - b.mtime);
 };
 
-const AllFiles = [];
+let AllFiles = [];
 
 // 対象ディレクトリ内の全てのファイルを取得する関数
 const getAllFiles = async (directoryPath) => {
@@ -100,34 +100,27 @@ const getAllFiles = async (directoryPath) => {
 
 // Excelファイルを出力する
 ipcMain.on('createExcelFile', (_, dirPath) => {
-  const forExcel = [
+  let forExcel = [
     [
       'フォルダ名',
       'ファイル名',
       'ファイルサイズ',
       '更新日',
       '更新時間',
+      'ファイルパス',
     ],
   ];
-  let fileDir = dirPath;
   (async () => {
     await getAllFiles(dirPath);
     for (const file of AllFiles) {
       if (file.name !== '.DS_Store') {
-        if (forExcel.length === 1) {
-          forExcel.push([file.path]);
-        } else if (fileDir !== file.dir) {
-          forExcel.push([], [file.path]);
-        }
-
-        fileDir = file.dir;
-
         forExcel.push([
           file.dir,
           file.name,
           `${(file.size / 1000000).toFixed(2)}Mbyte`,
           file.date,
           file.time,
+          file.path,
         ]);
       }
     }
@@ -138,9 +131,11 @@ ipcMain.on('createExcelFile', (_, dirPath) => {
     xlsx.writeFile(wb, `${dirPath}/${path.basename(dirPath)}.xls`);
     new Notification({
       title: '完了',
-      body: 'EXCELファイルを作成しました',
+      body: `${dirPath}/${path.basename(dirPath)}.xlsを作成しました`,
     }).show();
   })();
+  forExcel = [];
+  AllFiles = [];
 });
 
 app.whenReady().then(createWindow);
