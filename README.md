@@ -1,11 +1,6 @@
-# electron-react-boilerplate
-1. First install dependencies: ```npm install``` </br>
-2. In one terminal window run: ```npm run watch``` to compile react code <br/>
-3. In other one run: ```npm start``` to start Electron app
-
 # EXCEL-OUTPUT
 
-対象ディレクトリ内の全てのファイルリストを.xlsxファイルにて出力するアプリ
+対象ディレクトリ内の全てのファイル情報リストを.xlsxファイルにて出力するアプリ
 
 # DEMO
 
@@ -13,7 +8,7 @@
 
 # Features
 
-"hoge"のセールスポイントや差別化などを説明する
+
 
 # Requirement
 
@@ -22,7 +17,7 @@
 
 # Installation
 
-1. https://nodejs.org/ja/にてNodeをインストールする
+1. https://nodejs.org/ja にてNodeをインストールする
 2. 以下コマンドにてnpmをインストールする
 ```bash
 sudo npm install -g npm
@@ -30,11 +25,10 @@ sudo npm install -g npm
 
 # Usage
 
-```bash
-git clone https://github.com/hoge/~
-cd examples
-python demo.py
-```
+1. リポジトリをクローンする```git clone https://github.com/kozimatakesi/output_excel.git```
+2. モジュールをインストールする```npm install```
+3. 別のターミナルにて```npm run watch```を実行し、コードをコンパイルする
+4. さらに別のターミナルにて```npm start```を実行するとアプリが起動する
 
 # Note
 
@@ -42,17 +36,6 @@ python demo.py
 
 # Author
 
-作成情報を列挙する
-
-* 作成者
-* 所属
-* E-mail
-
-# License
-ライセンスを明示する
-
-"hoge" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
-
-社内向けなら社外秘であることを明示してる
-
-"hoge" is Confidential.
+* 作成者 川本直也
+* 所属 DevCranes
+* E-mail riverbook708@gmail.com
