@@ -9,6 +9,7 @@ import FilesList from './FilesList';
 const SearchDir = () => {
   const [dirPath, setDirPath] = useState('ディレクトリをここにドロップ');
   const [dirOrFile, setDirOrFile] = useState('');
+  const [dirInfo, setDirInfo] = useState('');
 
   // ドラッグしたディレクトリのパスを入力欄にいれる
   const handleDrop = async (e) => {
@@ -24,6 +25,10 @@ const SearchDir = () => {
     api.on('dirPath', (_, arg) => {
       setDirPath(arg);
       setDirOrFile('dir');
+    });
+
+    api.on('dirInfo', (_, arg) => {
+      setDirInfo(arg);
     });
   }, []);
 
@@ -48,16 +53,26 @@ const SearchDir = () => {
       {
         dirOrFile === 'dir'
           ? (
-            <Button
-              onClick={() => {
-                api.filesApi.createExcelFile(dirPath);
-              }}
-            >
-              EXCELファイル出力
-            </Button>
+            <Box>
+              <Button
+                onClick={() => {
+                  api.filesApi.createExcelFile(dirPath);
+                }}
+              >
+                EXCELファイル出力
+              </Button>
+              <Button
+                onClick={() => {
+                  api.filesApi.displayFilesList();
+                }}
+              >
+                ファイルリスト表示
+              </Button>
+            </Box>
           ) : <Text>ディレクトリを指定してください</Text>
 
       }
+      {dirInfo}
       <FilesList />
     </Container>
   );

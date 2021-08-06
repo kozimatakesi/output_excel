@@ -98,6 +98,11 @@ const getAllFiles = async (directoryPath) => {
   }
 };
 
+// FilesListを表示する
+ipcMain.on('displayFilesList', (event) => {
+  event.reply('dirInfo', 'hello');
+});
+
 // Excelファイルを出力する
 ipcMain.on('createExcelFile', (_, dirPath) => {
   const forExcel = [

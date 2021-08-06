@@ -16,6 +16,9 @@ contextBridge.exposeInMainWorld('api', {
     searchDirPath() {
       ipcRenderer.send('searchDirPath');
     },
+    displayFilesList() {
+      ipcRenderer.send('displayFilesList');
+    },
   },
   on: (channel, callback) => {
     ipcRenderer.on(channel, (event, arg) => callback(event, arg));
