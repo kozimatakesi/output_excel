@@ -27,13 +27,13 @@ const SearchDir = () => {
       setDirOrFile('dir');
     });
 
-    api.on('dirInfo', (_, arg) => {
+    /* api.on('dirInfo', (_, arg) => {
       setDirInfo(arg);
-    });
+    }); */
   }, []);
 
   return (
-    <Container>
+    <Container maxW="container.xl">
       <Box>
         <Button onClick={() => {
           api.filesApi.searchDirPath();
@@ -63,7 +63,7 @@ const SearchDir = () => {
               </Button>
               <Button
                 onClick={() => {
-                  api.filesApi.displayFilesList();
+                  api.filesApi.displayFilesList(dirPath);
                 }}
               >
                 ファイルリスト表示
@@ -72,7 +72,6 @@ const SearchDir = () => {
           ) : <Text>ディレクトリを指定してください</Text>
 
       }
-      {dirInfo}
       <FilesList />
     </Container>
   );

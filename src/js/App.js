@@ -7,9 +7,7 @@ import SearchDir from './SearchDir';
 export default function App() {
   return (
     <ChakraProvider>
-      <Container>
-        <SearchDir />
-      </Container>
+      <SearchDir />
     </ChakraProvider>
   );
 }

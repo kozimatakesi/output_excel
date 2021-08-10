@@ -12,8 +12,8 @@ const isDev = !app.isPackaged;
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 600,
-    height: 400,
+    width: 1200,
+    height: 800,
     backgroundColor: 'white',
     webPreferences: {
       nodeIntegration: false,
@@ -68,7 +68,7 @@ const getFilePathSortList = async (dir) => {
     .sort((a, b) => a.mtime - b.mtime);
 };
 
-const AllFiles = [];
+let AllFiles = [];
 
 // 対象ディレクトリ内の全てのファイルを取得する関数
 const getAllFiles = async (directoryPath) => {
@@ -99,8 +99,34 @@ const getAllFiles = async (directoryPath) => {
 };
 
 // FilesListを表示する
-ipcMain.on('displayFilesList', (event) => {
-  event.reply('dirInfo', 'hello');
+ipcMain.on('displayFilesList', (event, dirPath) => {
+  (async () => {
+    const forDisplay = [];
+    await getAllFiles(dirPath);
+    for (const file of AllFiles) {
+      if (file.name !== '.DS_Store') {
+        const checkTime = file.name.match(/_\d{6}\D/);
+        let startTime = '';
+        if (checkTime) {
+          const time = checkTime[0].slice(1).slice(0, -1);
+          const hour = time.slice(0, 2);
+          const min = time.slice(2, 4);
+          const sec = time.slice(4);
+          startTime = `${hour}:${min}:${sec}`;
+        }
+        forDisplay.push({
+          directory: file.dir,
+          name: file.name,
+          size: `${(file.size / 1000000).toFixed(2)}Mbyte`,
+          date: file.date,
+          start: startTime,
+          end: file.time,
+        });
+      }
+    }
+    event.reply('dirInfo', forDisplay);
+    AllFiles = [];
+  })();
 });
 
 // Excelファイルを出力する
