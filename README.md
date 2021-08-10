@@ -23,13 +23,10 @@
 
 # 環境インストール方法
 
-1. https://nodejs.org/ja にてNodeをインストールする
-2. 以下コマンドにてnpmをインストールする
-```bash
-sudo npm install -g npm
-```
+1. https://nodejs.org/ja にてNodeをインストールする  
 
-# アプリインストール方法
+
+# 実行方法
 
 1. リポジトリをクローンする```git clone https://github.com/kozimatakesi/output_excel.git```
 2. モジュールをインストールする```npm install```
