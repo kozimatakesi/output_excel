@@ -15,13 +15,12 @@ const FilesList = () => {
   useEffect(() => {
     api.on('dirInfo', (_, arg) => {
       setDirInfo(arg);
-      console.log(arg);
     });
   }, []);
 
   return (
-    <Table variant="simple">
-      <TableCaption>Imperial to metric conversion factors</TableCaption>
+    <Table size="sm">
+      <TableCaption>ファイルリスト</TableCaption>
       <Thead>
         <Tr>
           <Th>フォルダ</Th>
@@ -35,19 +34,20 @@ const FilesList = () => {
       </Thead>
       <Tbody>
         {
-          dirInfo
-            ? (
-              dirInfo.map((element, index) => (
-                <Tr key={index}>
-                  <Td>{element.directory}</Td>
-                  <Td>{element.name}</Td>
-                  <Td>{element.size}</Td>
-                  <Td>{element.date}</Td>
-                  <Td>{element.start}</Td>
-                  <Td>{element.end}</Td>
-                </Tr>
-              ))) : <Tr />
-      }
+        dirInfo
+          ? (
+            dirInfo.map((element, index) => (
+              <Tr key={index}>
+                <Td>{element.directory}</Td>
+                <Td>{element.name}</Td>
+                <Td>{element.size}</Td>
+                <Td>{element.date}</Td>
+                <Td>{element.start}</Td>
+                <Td>{element.end}</Td>
+                <Td>{element.path}</Td>
+              </Tr>
+            ))) : <Tr />
+        }
       </Tbody>
       <Tfoot>
         <Tr>

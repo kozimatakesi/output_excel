@@ -13,7 +13,7 @@ const isDev = !app.isPackaged;
 function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
-    height: 800,
+    height: 400,
     backgroundColor: 'white',
     webPreferences: {
       nodeIntegration: false,
@@ -121,6 +121,7 @@ ipcMain.on('displayFilesList', (event, dirPath) => {
           date: file.date,
           start: startTime,
           end: file.time,
+          path: file.path.replace(dirPath, ''),
         });
       }
     }

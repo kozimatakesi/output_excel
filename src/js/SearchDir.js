@@ -9,7 +9,6 @@ import FilesList from './FilesList';
 const SearchDir = () => {
   const [dirPath, setDirPath] = useState('ディレクトリをここにドロップ');
   const [dirOrFile, setDirOrFile] = useState('');
-  const [dirInfo, setDirInfo] = useState('');
 
   // ドラッグしたディレクトリのパスを入力欄にいれる
   const handleDrop = async (e) => {
@@ -26,10 +25,6 @@ const SearchDir = () => {
       setDirPath(arg);
       setDirOrFile('dir');
     });
-
-    /* api.on('dirInfo', (_, arg) => {
-      setDirInfo(arg);
-    }); */
   }, []);
 
   return (
@@ -47,7 +42,6 @@ const SearchDir = () => {
             readOnly
           />
         </DropArea>
-
       </Box>
 
       {
