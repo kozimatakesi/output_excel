@@ -18,12 +18,13 @@ const FilesList = () => {
     });
   }, []);
 
+  let color = '#BEE3F8';
+
   return (
     <Table size="sm">
       <TableCaption>ファイルリスト</TableCaption>
       <Thead>
         <Tr>
-          <Th>フォルダ</Th>
           <Th>ファイル名</Th>
           <Th>ファイルサイズ</Th>
           <Th>更新日</Th>
@@ -37,10 +38,14 @@ const FilesList = () => {
         dirInfo
           ? (
             dirInfo.map((element, index) => {
+              if (index !== 0 && element.path !== dirInfo[index - 1].path && color === '#BEE3F8') {
+                color = '#B2F5EA';
+              } else if (index !== 0 && element.path !== dirInfo[index - 1].path && color === '#B2F5EA') {
+                color = '#BEE3F8';
+              }
               if (index !== dirInfo.length - 1 && element.directory === dirInfo[index + 1].directory && dirInfo[index + 1].start !== element.start) {
                 return (
-                  <Tr key={index}>
-                    <Td>{element.directory}</Td>
+                  <Tr key={index} backgroundColor={color}>
                     <Td>{element.name}</Td>
                     <Td>{element.size}</Td>
                     <Td>{element.date}</Td>
@@ -51,8 +56,7 @@ const FilesList = () => {
                 );
               }
               return (
-                <Tr key={index}>
-                  <Td>{element.directory}</Td>
+                <Tr key={index} backgroundColor={color}>
                   <Td>{element.name}</Td>
                   <Td>{element.size}</Td>
                   <Td>{element.date}</Td>
@@ -67,7 +71,6 @@ const FilesList = () => {
       </Tbody>
       <Tfoot>
         <Tr>
-          <Th>フォルダ</Th>
           <Th>ファイル名</Th>
           <Th>ファイルサイズ</Th>
           <Th>更新日</Th>
