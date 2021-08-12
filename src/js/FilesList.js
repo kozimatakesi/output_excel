@@ -18,7 +18,7 @@ const FilesList = () => {
     });
   }, []);
 
-  let color = '#BEE3F8';
+  let lineColor = '#BEE3F8';
   let endColor = '';
 
   return (
@@ -39,13 +39,15 @@ const FilesList = () => {
         dirInfo
           ? (
             dirInfo.map((fileInfo, index) => {
-              if (index !== 0 && fileInfo.path !== dirInfo[index - 1].path && color === '#BEE3F8') {
-                color = '#B2F5EA';
-              } else if (index !== 0 && fileInfo.path !== dirInfo[index - 1].path && color === '#B2F5EA') {
-                color = '#BEE3F8';
+              // パスが前の行と異なっていた場合、色を変更する
+              if (index !== 0 && fileInfo.path !== dirInfo[index - 1].path && lineColor === '#BEE3F8') {
+                lineColor = '#B2F5EA';
+              } else if (index !== 0 && fileInfo.path !== dirInfo[index - 1].path && lineColor === '#B2F5EA') {
+                lineColor = '#BEE3F8';
               }
+              // 同じファイルパス、尚且つ、開始時間が次の行の開始時間と異なっていた場合、更新時間を赤文字にする
               if (index !== dirInfo.length - 1
-                && fileInfo.directory === dirInfo[index + 1].directory
+                && fileInfo.path === dirInfo[index + 1].path
                 && dirInfo[index + 1].start !== fileInfo.start) {
                 endColor = 'red';
               } else {
@@ -53,7 +55,7 @@ const FilesList = () => {
               }
 
               return (
-                <Tr key={index} backgroundColor={color}>
+                <Tr key={index} backgroundColor={lineColor}>
                   <Td>{fileInfo.name}</Td>
                   <Td>{fileInfo.size}</Td>
                   <Td>{fileInfo.date}</Td>
