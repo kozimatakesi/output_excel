@@ -19,6 +19,7 @@ const FilesList = () => {
   }, []);
 
   let color = '#BEE3F8';
+  let endColor = '';
 
   return (
     <Table size="sm">
@@ -37,32 +38,28 @@ const FilesList = () => {
         {
         dirInfo
           ? (
-            dirInfo.map((element, index) => {
-              if (index !== 0 && element.path !== dirInfo[index - 1].path && color === '#BEE3F8') {
+            dirInfo.map((fileInfo, index) => {
+              if (index !== 0 && fileInfo.path !== dirInfo[index - 1].path && color === '#BEE3F8') {
                 color = '#B2F5EA';
-              } else if (index !== 0 && element.path !== dirInfo[index - 1].path && color === '#B2F5EA') {
+              } else if (index !== 0 && fileInfo.path !== dirInfo[index - 1].path && color === '#B2F5EA') {
                 color = '#BEE3F8';
               }
-              if (index !== dirInfo.length - 1 && element.directory === dirInfo[index + 1].directory && dirInfo[index + 1].start !== element.start) {
-                return (
-                  <Tr key={index} backgroundColor={color}>
-                    <Td>{element.name}</Td>
-                    <Td>{element.size}</Td>
-                    <Td>{element.date}</Td>
-                    <Td>{element.start}</Td>
-                    <Td color="red">{element.end}</Td>
-                    <Td>{element.path}</Td>
-                  </Tr>
-                );
+              if (index !== dirInfo.length - 1
+                && fileInfo.directory === dirInfo[index + 1].directory
+                && dirInfo[index + 1].start !== fileInfo.start) {
+                endColor = 'red';
+              } else {
+                endColor = '';
               }
+
               return (
                 <Tr key={index} backgroundColor={color}>
-                  <Td>{element.name}</Td>
-                  <Td>{element.size}</Td>
-                  <Td>{element.date}</Td>
-                  <Td>{element.start}</Td>
-                  <Td>{element.end}</Td>
-                  <Td>{element.path}</Td>
+                  <Td>{fileInfo.name}</Td>
+                  <Td>{fileInfo.size}</Td>
+                  <Td>{fileInfo.date}</Td>
+                  <Td>{fileInfo.start}</Td>
+                  <Td color={endColor}>{fileInfo.end}</Td>
+                  <Td>{fileInfo.path}</Td>
                 </Tr>
               );
             })
