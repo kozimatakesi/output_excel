@@ -36,17 +36,33 @@ const FilesList = () => {
         {
         dirInfo
           ? (
-            dirInfo.map((element, index) => (
-              <Tr key={index}>
-                <Td>{element.directory}</Td>
-                <Td>{element.name}</Td>
-                <Td>{element.size}</Td>
-                <Td>{element.date}</Td>
-                <Td>{element.start}</Td>
-                <Td>{element.end}</Td>
-                <Td>{element.path}</Td>
-              </Tr>
-            ))) : <Tr />
+            dirInfo.map((element, index) => {
+              if (index !== dirInfo.length - 1 && element.directory === dirInfo[index + 1].directory && dirInfo[index + 1].start !== element.start) {
+                return (
+                  <Tr key={index}>
+                    <Td>{element.directory}</Td>
+                    <Td>{element.name}</Td>
+                    <Td>{element.size}</Td>
+                    <Td>{element.date}</Td>
+                    <Td>{element.start}</Td>
+                    <Td color="red">{element.end}</Td>
+                    <Td>{element.path}</Td>
+                  </Tr>
+                );
+              }
+              return (
+                <Tr key={index}>
+                  <Td>{element.directory}</Td>
+                  <Td>{element.name}</Td>
+                  <Td>{element.size}</Td>
+                  <Td>{element.date}</Td>
+                  <Td>{element.start}</Td>
+                  <Td>{element.end}</Td>
+                  <Td>{element.path}</Td>
+                </Tr>
+              );
+            })
+          ) : <Tr />
         }
       </Tbody>
       <Tfoot>
